@@ -4,7 +4,7 @@ from os.path import abspath
 import curses
 import sys
 import time
-
+import click
 from .fs import Scanner
 from .views import Screen
 
@@ -14,8 +14,10 @@ class Ohmu(object):
     refresh_rate = 0.05
 
     def __init__(self, root_path):
+        print("here", root_path)
         self.screen = Screen()
-        self.scanner = Scanner(root_path)
+        self.scanner = Scanner(str(root_path))
+
         self.keep_running = True
 
     def start(self):
@@ -50,16 +52,16 @@ class Ohmu(object):
         elif key_sequence == curses.KEY_RESIZE:
             self.screen.update_size()
 
-
-def main(name, args):
+def main(name, path='.'):
     if name != '__main__':
         return
-    root_path = abspath(args[0] if args else '.')
+    root_path = abspath(path)
+    print("dadad", root_path)
     Ohmu(root_path).start()
 
 
-def entry_point():
-    main('__main__', sys.argv[1:])
-
-
-main(__name__, sys.argv[1:])
+@click.command()
+@click.option('--path', default='.', help='path for ohmu', nargs=1)
+def entry_point(path):
+    print(path)
+    main('__main__', path)

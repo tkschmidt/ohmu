@@ -9,7 +9,13 @@ setup(
     packages=find_packages(),
     keywords='space usage',
     long_description=open('README.rst').read(),
-    entry_points={'console_scripts': ['ohmu=ohmu:entry_point']},
+    install_requires=[
+                    'Click',
+                        ],
+        entry_points='''
+                [console_scripts]
+                        ohmu=ohmu:entry_point
+                            ''',
     license='MIT',
     url='http://github.com/paul-nechifor/ohmu',
     test_suite='nose.collector',
