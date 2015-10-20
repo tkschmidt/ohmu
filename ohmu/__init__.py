@@ -14,7 +14,6 @@ class Ohmu(object):
     refresh_rate = 0.05
 
     def __init__(self, root_path):
-        print("here", root_path)
         self.screen = Screen()
         self.scanner = Scanner(str(root_path))
 
@@ -56,12 +55,10 @@ def main(name, path='.'):
     if name != '__main__':
         return
     root_path = abspath(path)
-    print("dadad", root_path)
     Ohmu(root_path).start()
 
 
 @click.command()
 @click.option('--path', default='.', help='path for ohmu', nargs=1)
 def entry_point(path):
-    print(path)
     main('__main__', path)
